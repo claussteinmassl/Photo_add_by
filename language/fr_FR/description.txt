@@ -1,0 +1,1 @@
+Ajoute l'information 'Photo Ajoutée par' sur la page photo

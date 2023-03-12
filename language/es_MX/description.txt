@@ -1,0 +1,1 @@
+Registra las personas que agregan una foto a una galería.
