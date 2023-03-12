@@ -35,8 +35,10 @@ function pabIT($content){
 	$replacement = '
   {if $PAB}
   <div id="pab1" class="imageInfo">
-    <dt>{\'Photo added by\'|@translate}</dt>
-    <dd>{$PAB}</dd>
+  	<dl class="row mb-0">
+		<dt class="col-sm-5">{\'Photo added by\'|@translate}</dt>
+		<dd class="col-sm-7">{$PAB}</dd>
+	</dl>
   </div>
 {/if}
 <div id="'.$conf['Photo_add_by'].'" class="imageInfo">';
