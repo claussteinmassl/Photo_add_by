@@ -55,16 +55,22 @@ load_language('lang', PHPWG_ROOT_PATH.PWG_LOCAL_DIR, array('no_fallback'=>true, 
     $query = 'select added_by FROM ' . IMAGES_TABLE . ' WHERE id = \''.$page['image_id'].'\';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
-	$userab=$row['added_by'];
+	$userab = $row['added_by'];
 	
 	$query = 'select '.$conf['user_fields']['username'].' AS username FROM ' . USERS_TABLE . ' WHERE '.$conf['user_fields']['id'].' = \''.$userab.'\';';
 	$result = pwg_query($query);
 	$row = pwg_db_fetch_assoc($result);
-	$pab=$row['username'];
-	
+
+	if(isset($row['username'])) {
+		$pab = $row['username'];
+	} else {
+		$pab = null;
+	}
+
+
 	$PASPBY = pwg_db_fetch_assoc(pwg_query("SELECT state FROM " . PLUGINS_TABLE . " WHERE id = 'see_photos_by_user';"));
 	$showpab = $conf['Photo_add_by_show'];
-	  if($showpab == 1 and $PASPBY['state'] == 'active'){
+	  if(isset($pab) and $showpab == 1 and $PASPBY['state'] == 'active'){
 		$query2 = 'SELECT UT.id, UT.username, COUNT(DISTINCT(IT.id)) AS PBU
 		  FROM ' . USERS_TABLE . ' as UT
 		  INNER JOIN '.IMAGES_TABLE.' AS IT ON IT.added_by = UT.id
